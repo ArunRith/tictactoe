@@ -52,6 +52,7 @@ int main()
 	InitialiseBoard(&board[0]);
 	board[ConvertTo25[0]] = CROSSES;
 	PrintBoard(&board[0]);
+
 	return 0;
 }
 
