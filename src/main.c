@@ -36,14 +36,27 @@ void InitialiseBoard(int *board) {
 
 void PrintBoard(const int *board) {
 	int index = 0;
-	printf("\nBoard:\n");
-	for(index=0; index<25; ++index) {
-		if(index!=0 && index%5==0) {
-			printf("\n");
+	char pceChars[] = "OX|-";
+	printf("\n\nBoard:\n\n");
+	for(index=0; index<9; ++index) {
+		if(index!=0 && index%3==0) {
+			printf("\n\n");
 		}
-		printf("%4d", board[index]);
+		printf("%4c", pceChars[board[ConvertTo25[index]]]);
 	}
 	printf("\n");
+}
+
+int HasEmpty(const int *board) {
+	int index = 0;
+	for(index=0; index<9; index++) {
+		if(board[ConvertTo25[index]]==EMPTY) return 1;
+	}
+	return 0;
+}
+
+void MakeMove(int *board, const int sq, const int side) {
+	board[sq] =  side;
 }
 
 void RunGame() {
@@ -68,7 +81,7 @@ void RunGame() {
 
 int main()
 {
-	srand(time(NULL));
+	//srand(time(NULL));
 	RunGame();
 
 	return 0;
