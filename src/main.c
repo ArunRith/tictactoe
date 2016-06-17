@@ -1,4 +1,6 @@
 #include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
 
 /*
 int board [25] = {
@@ -10,10 +12,8 @@ int board [25] = {
 }
 */
 
-const int NOUGHTS = 1;
-const int CROSSES = 2;
-const int BORDER = 3;
-const int EMPTY = 0;
+enum {NOUGHTS, CROSSES, BORDER, EMPTY};
+enum {HUMANWIN, COMWIN, DRAW};
 
 const int ConvertTo25[9] = {
 	6, 7, 8,
@@ -46,33 +46,33 @@ void PrintBoard(const int *board) {
 	printf("\n");
 }
 
+void RunGame() {
+	int GameOver = 0;
+	int Side = NOUGHTS;
+	int LastMoveMade = 0;
+	int board[25];
+	
+	InitialiseBoard(&board[0]);
+	PrintBoard(&board[0]);
+
+	while (!GameOver) {
+		if(Side==NOUGHTS) {
+			//Get move from homan, make move on board, change side
+		} else {
+			//Get move from computer, make move on board, change side
+			PrintBoard(&board[0]);
+		}
+	}
+
+}
+
 int main()
 {
-	int board[25];
-	InitialiseBoard(&board[0]);
-	board[ConvertTo25[0]] = CROSSES;
-	PrintBoard(&board[0]);
+	srand(time(NULL));
+	RunGame();
 
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
