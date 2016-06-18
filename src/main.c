@@ -59,6 +59,48 @@ void MakeMove(int *board, const int sq, const int side) {
 	board[sq] =  side;
 }
 
+int GetHumanMove(const int *board) {
+	char userInput[4];
+	int moveOk = 0;
+	int move = -1;
+	
+	while(moveOk == 0) {
+		printf("Please enter a move from 1 to 9:");
+		fgets(userInput, 3, stdin);
+		fflush(stdin);
+
+		if(strlen(userInput) != 2) {
+			printf("Invalid strlen()\n");
+			continue;
+		}
+
+		if(sscanf(userInput, "%d", &move) != 1) {
+			move = -1;
+			printf("Invalid sscanf()\n");
+			continue;
+		}
+
+		if(move<1 || move>9) {
+			move = -1;
+			printf("Invalid range\n");
+			continue;
+		}
+	
+		move--; //Zero indexing
+	
+		if( board[ConvertTo25[move]] != EMPTY) {
+			move = -1;
+			printf("Square not availalbe\n");
+			continue;
+		}
+
+		moveOk = 1;	
+	}	
+	
+	printf("Making move...%d\n", (move+1));
+	return ConvertTo25[move];
+}
+
 void RunGame() {
 	int GameOver = 0;
 	int Side = NOUGHTS;
@@ -70,18 +112,24 @@ void RunGame() {
 
 	while (!GameOver) {
 		if(Side==NOUGHTS) {
+			GetHumanMove(&board[0]);
 			//Get move from homan, make move on board, change side
 		} else {
 			//Get move from computer, make move on board, change side
 			PrintBoard(&board[0]);
 		}
+		// If three in a row exists, Game is over
+
+		// If no more move, game is a draw
+	
+		GameOver = 1; // REMOVE ME!!
 	}
 
 }
 
 int main()
 {
-	//srand(time(NULL));
+	srand(time(NULL));
 	RunGame();
 
 	return 0;
